@@ -1,43 +1,59 @@
 import {useState} from "react";
 import {useRef} from "react";
-import User from "./User.jsx";
-import AddUser from "./AddUser.jsx";
 function App(){
-  // const [users, setUsers] = useState([
-  //   {"id":1, "name":"tariq", "email":"tariq@gmail.com", "isBlocked":true},
-  //   {"id":2, "name":"anas", "email":"anas@gmail.com", "isBlocked":false},
-  //   {"id":3, "name":"hala", "email":"hala@gmail.com", "isBlocked":true},
-  //   {"id":4, "name":"asmaa", "email":"asmaa@gmail.com", "isBlocked":true},
-  // ]);
+  const [user,setUser] =useState({
+    name:'',
+    email:'',
+    password:''
+  })
+  
+  const handleChange =(e)=>{
+    const {name,value} = e.target;
 
-  const nameInput = useRef();
-  const registerUser = (e)=>{
-    e.preventDefault();
-    console.log(nameInput.current.value);
+    setUser({
+      ...user,
+      [name]:value
+    })
   }
-  const handleChange = ()=>{
-    console.log(nameInput.current.value);
+  // const handleChangeUserName = (e)=>{
+  //   const {value} = e.target;
+  //   setUser({name:value, email:user.email, password:user.password});
+  // }
+  // const handleChangeEmail = (e)=>{
+  //   const {value} = e.target;
+  //   setUser({name:value, email:user.email, password:user.password});
+  // }
+  // const handleChangePassword = (e)=>{
+  //   const {value} = e.target;
+  //   setUser({name:value, email:user.email, password:user.password});
+  // }
+  const handleSubmit =(e)=>{
+    e.preventDefault();
+    console.log(user);
   }
 
   return(
     <div>
       <h2>Register</h2>
-      <form onSubmit={registerUser}>
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">user name</label>
-          <input ref={nameInput}onChange={handleChange} type="text" className="form-control" />
-
+          <input name="name" value={user.name}onChange={handleChange} type="text" className="form-control" />
         </div>
+
+        <div className="mb-3">
+          <label className="form-label">user email</label>
+          <input name="email" value={user.email}onChange={handleChange} type="text" className="form-control" />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">user password</label>
+          <input name="password" value={user.password}onChange={handleChange} type="text" className="form-control" />
+        </div>
+
         <button type="submit" className="btn btn-outline-primary">Register</button>
       </form>
-      {/* <div className="users">
-      {
-        users.map((user)=>
-          <User name={user.name} email={user.email} key="user.id"/>
-        )
-      }
-      </div>
-      <AddUser /> */}
+      
     </div>
     
   );
